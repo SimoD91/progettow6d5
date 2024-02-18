@@ -3,6 +3,7 @@ package it.epicode.progettow6d5.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+@Entity
 @Data
 public class Dispositivo {
     @Id

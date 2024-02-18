@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DispositivoService {
     @Autowired
@@ -19,12 +21,17 @@ public class DispositivoService {
     @Autowired
     private DipendenteService dipendenteService;
 
-    public Page<Dispositivo> getAllDispositivi(Pageable pageable) {
-        return dispositivoRepository.findAll(pageable);
+    public Dispositivo getDispositivoId(int id) {
+        Optional<Dispositivo> optionalDispositivo = dispositivoRepository.findById(id);
+        if (optionalDispositivo.isPresent()) {
+            return optionalDispositivo.get();
+        } else {
+            throw new NotFoundException("Id dispositivo non trovato");
+        }
     }
 
-    public Dispositivo getDispositivoId(int id) {
-        return dispositivoRepository.findById(id).orElseThrow(() -> new NotFoundException("Id dispositivo non trovato"));
+    public Page<Dispositivo> getAllDispositivi(Pageable pageable) {
+        return dispositivoRepository.findAll(pageable);
     }
 
     public Dispositivo saveDispositivo(DispositivoRequest dispositivoRequest) throws DispositiviException {
@@ -33,10 +40,10 @@ public class DispositivoService {
                 dispositivoRequest.getTipologiaDispositivo());
         if (dispositivoRequest.getStatoDispositivo() == StatoDispositivo.ASSEGNATO) {
             throw new DispositiviException("Dispositivo occupato");
-        } else if (dispositivoRequest.getStatoDispositivo().equals(StatoDispositivo.IN_MANUTENZIONE)) {
-            throw new NotFoundException("Dispositivo in manutenzione");
         } else if (dispositivoRequest.getStatoDispositivo().equals(StatoDispositivo.DISMESSO)) {
             throw new DispositiviException("Dispositivo dismesso");
+        } else if (dispositivoRequest.getStatoDispositivo().equals(StatoDispositivo.IN_MANUTENZIONE)) {
+            throw new NotFoundException("Dispositivo in manutenzione");
         }
         return dispositivoRepository.save(dispositivo);
     }
@@ -45,6 +52,7 @@ public class DispositivoService {
         Dispositivo dispositivo = getDispositivoId(id);
         dispositivoRepository.delete(dispositivo);
     }
+
     public Dispositivo updateDispositivo(int id, DispositivoRequest dispositivoRequest) throws NotFoundException {
         Dispositivo dispositivo = getDispositivoId(id);
         Dipendente dipendente = dipendenteService.getDipendenteId(dispositivoRequest.getIdDipendente());

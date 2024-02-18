@@ -7,16 +7,13 @@ import lombok.Data;
 
 @Data
 public class DispositivoRequest {
-    @NotNull(message = "Id dipendente obbligatorio")
-    @NotEmpty(message = "Id dipendente obbligatorio")
+    @NotNull(message = "Id dipendente mancante")
     private Integer idDipendente;
 
-    @NotNull(message = "Stato dispositivo obbligatorio")
-    @NotEmpty(message = "Stato dispositivo obbligatorio")
+    @NotNull(message = "Stato dispositivo mancante")
     private StatoDispositivo statoDispositivo;
 
-    @NotNull(message = "Tipologia dispositivo obbligatoria")
-    @NotEmpty(message = "Tipologia dispositivo obbligatoria")
+    @NotNull(message = "Tipologia dispositivo mancante")
     private  TipologiaDispositivo tipologiaDispositivo;
 }
 

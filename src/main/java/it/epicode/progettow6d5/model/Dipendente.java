@@ -1,8 +1,8 @@
 package it.epicode.progettow6d5.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +17,7 @@ public class Dipendente {
     private String cognome;
     private String email;
     @OneToMany(mappedBy = "dipendente")
+    @JsonIgnore
     private List<Dispositivo> dispositivi;
     private String avatar;
 

@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.IOException;
+
 @RestControllerAdvice
 public class ResponseExceptionHandler {
 
@@ -14,7 +16,7 @@ public class ResponseExceptionHandler {
         return new ErrorResponse(e.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(IOException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse ExceptionHandler(Exception e) {
         return new ErrorResponse(e.getMessage());
@@ -25,7 +27,7 @@ public class ResponseExceptionHandler {
     public ErrorResponse badRequestExceptionHandler(BadRequestException e) {
         return new ErrorResponse(e.getMessage());
     }
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler(DispositiviException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse DispositiviException(DispositiviException e) {
         return new ErrorResponse(e.getMessage());

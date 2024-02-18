@@ -1,5 +1,6 @@
 package it.epicode.progettow6d5.model;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -8,20 +9,19 @@ import java.util.List;
 
 @Data
 public class DipendenteRequest {
-    @NotNull(message = "Username obbligatorio")
-    @NotEmpty(message = "Username obbligatorio")
+    @NotNull(message = "Username mancante")
+    @NotEmpty(message = "Username mancante")
     private String username;
 
-    @NotNull(message = "Nome obbligatorio")
-    @NotEmpty(message = "Nome obbligatorio")
+    @NotNull(message = "Nome mancante")
+    @NotEmpty(message = "Nome mancante")
     private String nome;
 
-    @NotNull(message = "Cognome obbligatorio")
-    @NotEmpty(message = "Cognome obbligatorio")
+    @NotNull(message = "Cognome mancante")
+    @NotEmpty(message = "Cognome mancante")
     private String cognome;
 
-    @NotNull(message = "Email obbligatoria")
-    @NotEmpty(message = "Email obbligatoria")
+    @Email(message = "Email mancante")
     private String email;
 
     private List<Dispositivo> dispositivi;
