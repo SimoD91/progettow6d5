@@ -35,7 +35,7 @@ public class DipendenteService {
 
     public Dipendente saveDipendente(DipendenteRequest dipendenteRequest) throws NotFoundException {
         Dipendente dipendente = new Dipendente(dipendenteRequest.getUsername(), dipendenteRequest.getNome(), dipendenteRequest.getCognome(), dipendenteRequest.getEmail());
-        //sendMail(dipendente.getEmail());
+        sendMail(dipendente.getEmail());
         return dipendenteRepository.save(dipendente);
     }
     public void deleteDipendente(int id) throws NotFoundException {
